@@ -26,7 +26,7 @@ if dll_check():
 if params.ENV == 'prod':
     current_path = ''
 elif params.ENV == 'dev':
-    current_path = os.path.dirname(os.path.abspath(__file__)) + '\\'
+    current_path = os.path.dirname(os.path.abspath(__file__)) + os.sep
 
 
 # Ping Google's DNS server to reveal IP
@@ -60,12 +60,15 @@ def get_config_path(old_check=False):
             config_path = os.path.dirname(sys.executable)
         elif __file__:
             config_path = os.path.dirname(__file__)
+    elif params.BUILD == 'linux':
+        config_path = os.path.join(os.getenv('HOME'),'screenBloom')
 
-    return config_path + '\\screenBloom_config.cfg'
+    return os.path.join(config_path, 'screenBloom_config.cfg')
 
 
 def move_files_check():
-    new_dir = os.getenv('APPDATA') + '\\screenBloom'
+    new_dir = os.getenv('APPDATA') or os.getenv('HOME')
+    new_dir = os.path.join(new_dir, 'screenBloom')
 
     if os.path.isfile(get_config_path(True)):
         if not os.path.exists(new_dir):
@@ -124,9 +127,9 @@ def get_screenshot(display_index):
             img = imgs[int(display_index)]
         except IndexError:
             img = imgs[0]
-    # Mac version
+    # Mac/Linux version
     else:
-        from PIL import ImageGrab
+        import pyscreenshot as ImageGrab
         img = ImageGrab.grab()
 
     tmp = StringIO.StringIO()
@@ -233,10 +236,11 @@ def get_config_dict():
 
 
 def get_json_filepath(old_check=False):
+    filepath = os.getenv('APPDATA') or os.getenv('HOME')
     if old_check:
-        filepath = os.getenv('APPDATA') + '\\screenBloom_presets.json'
+        filepath = os.path.join(filepath, 'screenBloom_presets.json')
     else:
-        filepath = os.getenv('APPDATA') + '\\screenBloom\\screenBloom_presets.json'
+        filepath = os.path.join(filepath, 'screenBloom', 'screenBloom_presets.json')
     return filepath
 
 

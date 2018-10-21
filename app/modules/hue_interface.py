@@ -1,4 +1,4 @@
-import vendor.rgb_xy as rgb_xy
+import rgbxy as rgb_xy
 import sb_controller
 import requests
 import utility

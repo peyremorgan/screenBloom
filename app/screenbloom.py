@@ -1,6 +1,6 @@
 from modules import sb_controller, startup, utility, view_logic, registration, presets, hue_interface
 from flask import Flask, render_template, jsonify, request
-import modules.vendor.rgb_xy as rgb_xy
+import rgbxy as rgb_xy
 from config import params
 import argparse
 import json

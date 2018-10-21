@@ -47,7 +47,8 @@ def create_config(hue_ip, username):
     config.add_section('App State')
     config.set('App State', 'running', False)
 
-    directory = os.getenv('APPDATA') + '\\screenBloom'
+    directory = os.getenv('APPDATA') or os.getenv('HOME')
+    directory = os.path.join(directory,'screenBloom')
     if not os.path.exists(directory):
         os.makedirs(directory)
 

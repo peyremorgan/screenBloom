@@ -8,9 +8,7 @@ import utility
 import random
 import json
 import ast
-
-if utility.dll_check():
-    import img_proc
+import img_proc
 
 
 # Class for running ScreenBloom thread

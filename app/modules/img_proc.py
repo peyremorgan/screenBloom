@@ -5,7 +5,7 @@ import utility
 if params.BUILD == 'win':
     from desktopmagic.screengrab_win32 import getDisplaysAsImages, getRectAsImage
 else:
-    from PIL import ImageGrab
+    import pyscreenshot as ImageGrab
 
 
 LOW_THRESHOLD = 10
@@ -76,7 +76,7 @@ def screen_avg(_screen):
         except IndexError:
             utility.display_check(_screen)
             img = getRectAsImage(_screen.bbox)
-    # Mac version uses standard PIL ImageGrab
+    # Mac/Linux version uses standard PIL ImageGrab
     else:
         img = ImageGrab.grab()
 
